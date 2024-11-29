@@ -5,6 +5,9 @@ const sharp = require("sharp");
 const marblesDir = "./marbles";
 const outputDir = "./trimmed-marbles";
 const batchSize = 200;
+const fixedWidth = 512;
+const fixedHeight = 512;
+
 async function processBatch(files) {
   const promises = files.map(async (file) => {
     const filePath = path.join(marblesDir, file);
@@ -14,7 +17,16 @@ async function processBatch(files) {
     const outputFilePath = path.join(outputDir, file);
 
     try {
-      await sharp(filePath).trim().toFile(outputFilePath);
+      await sharp(filePath)
+        .trim()
+        .resize({
+          width: fixedWidth,
+          height: fixedHeight,
+          fit: sharp.fit.contain,
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        })
+        .toFile(outputFilePath);
+      console.log(`Processed: ${file}`);
     } catch (error) {
       console.error(`Error processing ${file}:`, error);
     }
