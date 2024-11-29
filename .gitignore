@@ -1,5 +1,7 @@
 
 node_modules/
 trimmed-marbles
-marbles
+marbles/**
+!marbles/.gitkeep
+
 .DS_Store
