@@ -3,5 +3,6 @@ node_modules/
 trimmed-marbles
 marbles/**
 !marbles/.gitkeep
+org-marbles/
 
 .DS_Store
